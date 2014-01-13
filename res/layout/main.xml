@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+    >
+<fragment xmlns:map="http://schemas.android.com/apk/res-auto"
+          android:id="@+id/map"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:name="com.google.android.gms.maps.MapFragment"
+          map:cameraBearing="112.5"
+          map:cameraTargetLat="-33.796923"
+          map:cameraTargetLng="150.922433"
+          map:cameraTilt="30"
+          map:cameraZoom="13"
+          map:mapType="normal"
+          map:uiCompass="true"
+          map:uiRotateGestures="false"
+          map:uiScrollGestures="true"
+          map:uiTiltGestures="true"
+          map:uiZoomControls="true"
+          map:uiZoomGestures="true"/>
+    <TextView
+        android:id="@+id/debug_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="#000000"
+        android:textColor="#FFFFFF"
+        />
+
+    <fragment
+            android:id="@+id/pick_fragment_id"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/pick_fragment_height"
+            android:name="com.hyn.app.widget.PickAxisFragment"
+            android:layout_above="@id/debug_info"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+        />
+</RelativeLayout>
