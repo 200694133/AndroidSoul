@@ -136,4 +136,9 @@ public class LocationDAO implements Disposable {
         mLocationDatabaseHelper.close();
         mLocationDatabaseHelper = null;
     }
+
+    @Override
+    public boolean isDisposed() {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

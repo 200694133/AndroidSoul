@@ -23,8 +23,8 @@ import java.util.List;
  * other process.
  */
 public class SensorService extends Service implements Handler.Callback, LocationHelper.LocationCallback {
-    //private static final String TAG = SensorService.class.getSimpleName();
-    private static final String TAG = Constants.TAG;
+    private static final String TAG = SensorService.class.getSimpleName();
+//    private static final String TAG = SensorService.TAG;
 
     /** Message id: register a listener to listen the location state. */
     public static final int MSG_REGISTER_LOCATION = 0x01;

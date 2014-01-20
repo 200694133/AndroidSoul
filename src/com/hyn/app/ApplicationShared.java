@@ -73,6 +73,11 @@ public class ApplicationShared extends Application implements Disposable {
 
     }
 
+    @Override
+    public boolean isDisposed() {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
     /**
      * A set of information given to this application when it is running.
      */
