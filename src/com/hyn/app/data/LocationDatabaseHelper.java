@@ -154,7 +154,9 @@ class LocationDatabaseHelper extends SQLiteOpenHelper {
      *
      */
     public Cursor query(long startTime, long endTime){
-        return getWritableDatabase().rawQuery("select * from " + TABLE_NAME + " order by " + FIELD_ID + " desc limit 1 ", null);
+    	String sql = "select * from " + TABLE_NAME + " where "+FIELD_START_TIME + " >= "+startTime
+    			+" and "+FIELD_END_TIME + " <= "+endTime+" order by " + FIELD_ID;
+        return getWritableDatabase().rawQuery(sql, null);
     }
 
     /**

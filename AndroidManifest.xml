@@ -23,7 +23,7 @@
             android:icon="@drawable/ic_launcher">
         <meta-data
                 android:name="com.google.android.maps.v2.API_KEY"
-                android:value="AIzaSyA04_hH354OTE9pGROfWWPHgKtXhRuT2l8"/>
+                android:value="AIzaSyB8Hx9Pw8MUvy8SSG_DU5U7QI_q_6XppT8"/>
         <meta-data
                 android:name="com.google.android.gms.version"
                 android:value="@integer/google_play_services_version" />

@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import com.hyn.app.FunctionUtil;
+import com.hyn.app.util.FunctionUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,12 +111,17 @@ class LocationHelper implements LocationListener{
         @Override
         public void run() {
             Location location = null;
-            if(mLocationManager.isProviderEnabled(GPS_PROVIDE)){
+            LocationManager locationManager = mLocationManager;
+            if(null == locationManager) {
+            	Log.e(TAG, "In Wake Up Runnable, LocationManager has finished!");
+            	return ;
+            }
+            if(locationManager.isProviderEnabled(GPS_PROVIDE)){
                 Log.i(TAG, "WakeUp Runnable Support GPS");
-                location = mLocationManager.getLastKnownLocation(GPS_PROVIDE);
-            }else if(mLocationManager.isProviderEnabled(BASE_STATION_PROVIDE)){
+                location = locationManager.getLastKnownLocation(GPS_PROVIDE);
+            }else if(locationManager.isProviderEnabled(BASE_STATION_PROVIDE)){
                 Log.i(TAG, "WakeUp Runnable Support NETWORK");
-                location = mLocationManager.getLastKnownLocation(BASE_STATION_PROVIDE);
+                location = locationManager.getLastKnownLocation(BASE_STATION_PROVIDE);
             }
             if(null == location) {
                 Log.e(TAG, "Cannot get location in wake up runnable. Delay 10 minutes to run again. ");
@@ -145,17 +150,23 @@ class LocationHelper implements LocationListener{
         if(null == mLocationManager){
             mLocationManager = (LocationManager)mContext.getSystemService(Context.LOCATION_SERVICE);
         }
-        if(mLocationManager.isProviderEnabled(GPS_PROVIDE)){
+        LocationManager locationManager = mLocationManager;
+        if(null == locationManager){
+        	Log.e(TAG, "Can not get LocationManager Service. Delay "+mTimeInterval+" to run again.");
+        	mHandler.postDelayed(mTryAgainRunnable, mTimeInterval);
+        	return ;
+        }
+        if(locationManager.isProviderEnabled(GPS_PROVIDE)){
             Log.i(TAG, "Support GPS");
-            Location location = mLocationManager.getLastKnownLocation(GPS_PROVIDE);
+            Location location = locationManager.getLastKnownLocation(GPS_PROVIDE);
             onLocationChanged(location);
-            mLocationManager.requestLocationUpdates(GPS_PROVIDE, 30000, 500, this);
+            locationManager.requestLocationUpdates(GPS_PROVIDE, 30000, 500, this);
             mHandler.postDelayed(mWakeUpRunnable, LOCATION_MIN_TIME_DIVISION);
-        }else if(mLocationManager.isProviderEnabled(BASE_STATION_PROVIDE)){
+        }else if(locationManager.isProviderEnabled(BASE_STATION_PROVIDE)){
             Log.i(TAG, "Support NETWORK");
-            Location location = mLocationManager.getLastKnownLocation(BASE_STATION_PROVIDE);
+            Location location = locationManager.getLastKnownLocation(BASE_STATION_PROVIDE);
             onLocationChanged(location);
-            mLocationManager.requestLocationUpdates(BASE_STATION_PROVIDE, 30000, 500, this);
+            locationManager.requestLocationUpdates(BASE_STATION_PROVIDE, 30000, 500, this);
             mHandler.postDelayed(mWakeUpRunnable, LOCATION_MIN_TIME_DIVISION);
         }else{
             Log.i(TAG, "Support NONE");
@@ -167,10 +178,11 @@ class LocationHelper implements LocationListener{
      * Stop listen the state of position.
      */
     final synchronized void stop(){
-        mHandler.removeCallbacks(null);
-        if(null != mLocationManager){
+    	if(null != mLocationManager){
             mLocationManager.removeUpdates(this);
         }
+        mHandler.removeCallbacks(mTryAgainRunnable);
+        mHandler.removeCallbacks(mWakeUpRunnable);
     }
 
     /**
@@ -181,8 +193,8 @@ class LocationHelper implements LocationListener{
         if(mPrevUpdateTime>0){
             getListenerInfo().notifyLocationInfo(mPrevUpdateTime, System.currentTimeMillis(), mPrevLat, mPrevLng);
         }
-
-        mHandler.removeCallbacks(null);
+        mHandler.removeCallbacks(mTryAgainRunnable);
+        mHandler.removeCallbacks(mWakeUpRunnable);
         getListenerInfo().clear();
         mContext = null;
         mLocationManager = null;
@@ -192,7 +204,7 @@ class LocationHelper implements LocationListener{
     public void onLocationChanged(Location location) {
         Log.i(TAG, "Location change to" + location);
         if(null == location){
-            getListenerInfo().notifyLocationError(new RuntimeException("Get empty Location."));
+            //getListenerInfo().notifyLocationError(new RuntimeException("Get empty Location."));
             return ;
         }
         long curr = System.currentTimeMillis();

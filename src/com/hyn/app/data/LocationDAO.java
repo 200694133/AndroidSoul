@@ -82,11 +82,11 @@ public class LocationDAO implements Disposable {
         List<LocationEntry> locations = new LinkedList<LocationEntry>();
         while(cursor.moveToNext()){
             LocationEntry entry = new LocationEntry();
-            entry.setId(mLocationDatabaseHelper.getId(cursor));
-            entry.setLat(mLocationDatabaseHelper.getLat(cursor));
-            entry.setLng(mLocationDatabaseHelper.getLng(cursor));
-            entry.setStartMillTime(mLocationDatabaseHelper.getStartTime(cursor));
-            entry.setEndMillTime(mLocationDatabaseHelper.getEndTime(cursor));
+            entry.setId(LocationDatabaseHelper.getId(cursor));
+            entry.setLat(LocationDatabaseHelper.getLat(cursor));
+            entry.setLng(LocationDatabaseHelper.getLng(cursor));
+            entry.setStartMillTime(LocationDatabaseHelper.getStartTime(cursor));
+            entry.setEndMillTime(LocationDatabaseHelper.getEndTime(cursor));
             locations.add(entry);
 
         }

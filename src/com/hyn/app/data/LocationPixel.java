@@ -1,5 +1,10 @@
 package com.hyn.app.data;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.LatLng;
+import com.hyn.app.util.FunctionUtil;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Administrator
@@ -8,26 +13,36 @@ package com.hyn.app.data;
  * To change this template use File | Settings | File Templates.
  */
 public class LocationPixel {
-    double mLat;
-    double mLng;
-    double mRatio;
-
-    public double getLat() {
-        return mLat;
+	protected LatLng mCenter = null;
+	protected double mRatio = 0.0;
+    protected Circle mCircle = null;
+    protected double mRadius;
+    protected int mFillColor;
+    
+    public LocationPixel(LatLng center, LatLng radiusLatLng){
+    	mCenter = center;
+    	mRadius = FunctionUtil.toRadiusMeters(center, radiusLatLng);
+    	
+    	initIfNeed();
     }
-
-    public void setLat(double mLat) {
-        this.mLat = mLat;
+    
+    public LocationPixel(LatLng center, double radius){
+    	mCenter = center;
+    	mRadius = radius;
+    	
+    	initIfNeed();
     }
-
-    public double getLng() {
-        return mLng;
+    
+    public LocationPixel(double lat, double lng, double radius){
+    	mCenter = new LatLng(lat, lng);
+    	mRadius = radius;
+    	
+    	initIfNeed();
     }
-
-    public void setLng(double mLng) {
-        this.mLng = mLng;
+    
+    public LatLng getCenter(){
+    	return mCenter;
     }
-
     public double getRatio() {
         return mRatio;
     }
@@ -35,4 +50,8 @@ public class LocationPixel {
     public void setRatio(double mRatio) {
         this.mRatio = mRatio;
     }
+    
+    private void initIfNeed(){
+    	if(mRatio <= 0.00001) return ;
+    }    
 }

@@ -21,19 +21,17 @@ import java.util.Random;
 public class MyActivity extends Activity {
     //private static final String TAG = MyActivity.class.getSimpleName();
     private static final String TAG = MyActivity.class.getSimpleName();
-    final private Handler.Callback mLocationCallback = new Handler.Callback(){
-        @Override
-        public boolean handleMessage(Message msg) {
-            displayLocationInfo(msg);
-            return true;
-        }
+    
+    final Handler mHandler = new Handler(Looper.getMainLooper()){
+    	 public void handleMessage(Message msg) {
+    		 displayLocationInfo(msg);
+    	 }
     };
-    final Handler mHandler = new Handler(Looper.getMainLooper(), mLocationCallback);
 
     Messenger mClientMessenger;
     Messenger mSensorMessenger;
     TextView mDebugView = null;
-    private MapFragmentController mMapFragmentController = null;
+    private MapController mMapFragmentController = null;
     MapFragment mMapFragment;
     /**
      * Called when the activity is first created.
@@ -60,24 +58,28 @@ public class MyActivity extends Activity {
             }
         });
 
-
         mMapFragment = (MapFragment)this.getFragmentManager().findFragmentById(R.id.map);
-        mMapFragmentController = new MapFragmentController(mMapFragment);
+        mMapFragmentController = new MapController(mMapFragment);
     }
 
 
     public void onResume(){
         super.onResume();
-        mMapFragmentController.init();
 
         mDebugView.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mMapFragmentController.post(0, 999999999);
+            	mMapFragmentController.init();
+                mMapFragmentController.post(0, 5555456456456L);
             }
-        }, 3000);
+        }, 5000);
     }
+    
+    public void onDestroy(){
+        super.onDestroy();
 
+        this.unbindService(mConnection);
+    }
 
     void displayLocationInfo(Message msg){
         Object data = msg.getData().get("data");
@@ -90,7 +92,7 @@ public class MyActivity extends Activity {
 
             if(res instanceof RuntimeException){
                 RuntimeException e = (RuntimeException)res;
-                mDebugView.setText("Index "+msg.what+"\tException"+e.toString());
+                mDebugView.setText("Index "+msg.what+"\t Exception"+e.toString());
                 return;
             }
 
@@ -119,12 +121,6 @@ public class MyActivity extends Activity {
             mSensorMessenger = null;
         }
     };
-
-    public void onDestroy(){
-        super.onDestroy();
-
-        this.unbindService(mConnection);
-    }
 
 
     public Runnable runnable = new Runnable() {
