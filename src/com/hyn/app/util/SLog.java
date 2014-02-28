@@ -21,8 +21,6 @@ public class SLog {
     private final static boolean I_FLAG = true;
     /** A flag to indicate if print error level' log. */
     private final static boolean E_FLAG = true;
-    /** A flag to indicate if print assert level' log. */
-    private final static boolean A_FLAG = true;
 
 
     public final static void d(final String tag, final String content){

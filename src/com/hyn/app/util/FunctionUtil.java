@@ -1,5 +1,8 @@
 package com.hyn.app.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.location.Location;
 import android.os.Looper;
 
@@ -31,4 +34,26 @@ public class FunctionUtil {
         }
         return false;
     }
+	
+	public DateInfo parseDateInfo(long t){
+		return new DateInfo(t);
+	}
+	
+	public static class DateInfo{
+		public long mMillTimes;
+		public String mDes;
+		public DateInfo(long milltime){
+			mMillTimes = milltime;
+			sync();
+		}
+		void sync(){
+			SimpleDateFormat  sDateFormat = new SimpleDateFormat("MM-dd");  
+			Date curDate = new Date(mMillTimes);
+			mDes = sDateFormat.format(curDate);
+		}
+		
+		public String toString(){
+			return mDes;
+		}
+	}
 }

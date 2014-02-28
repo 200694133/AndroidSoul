@@ -13,7 +13,7 @@ import com.hyn.app.util.Disposable;
  * It's provide a convenience way to store and access the static vars, which may be cause
  * memory leaks. Make sure that it must be disposed when application has existed, in other
  * words, when exist the application, the function #{@link #dispose()} must be called to
- * recycle the resource, especially clear static vars.
+ * recycle the resource, especially clear static variable.
  */
 public class ApplicationShared extends Application implements Disposable {
     /** class name, used for logcat */
@@ -75,7 +75,7 @@ public class ApplicationShared extends Application implements Disposable {
 
     @Override
     public boolean isDisposed() {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        return false; 
     }
 
     /**

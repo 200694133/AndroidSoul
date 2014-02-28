@@ -3,11 +3,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
     >
-<fragment xmlns:map="http://schemas.android.com/apk/res-auto"
+<fragment 
           android:id="@+id/map"
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:name="com.google.android.gms.maps.MapFragment"
+          android:name="com.hyn.app.page.ui.LoadingFragment"
+          />
+<!-- android:name="com.google.android.gms.maps.MapFragment"
           map:cameraBearing="112.5"
           map:cameraTargetLat="-33.796923"
           map:cameraTargetLng="150.922433"
@@ -19,7 +21,8 @@
           map:uiScrollGestures="true"
           map:uiTiltGestures="true"
           map:uiZoomControls="true"
-          map:uiZoomGestures="true"/>
+          map:uiZoomGestures="true" -->
+
     <TextView
         android:id="@+id/debug_info"
         android:layout_width="wrap_content"
@@ -31,13 +34,23 @@
         android:textColor="#FFFFFF"
         />
 
-    <fragment
-            android:id="@+id/pick_fragment_id"
+    <fragment 
+            android:id="@+id/info_fragment"
+            android:name="com.hyn.app.page.ui.EmptyFragment"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/pick_fragment_height"
-            android:name="com.hyn.app.widget.PickAxisFragment"
             android:layout_above="@id/debug_info"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
         />
+    
+    <com.hyn.app.page.ui.AutoHorizontalScrollView
+        android:id="@+id/titlebar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+         />
+    
 </RelativeLayout>

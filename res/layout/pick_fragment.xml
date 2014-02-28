@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/pick_fragment_height">
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/pick_fragment_height">
     <View
             android:id="@+id/pick_fragment_background"
             android:layout_width="wrap_content"
@@ -11,8 +10,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="@dimen/pick_fragment_background_padding"
             android:layout_marginRight="@dimen/pick_fragment_background_padding"
-            android:layout_marginBottom="@dimen/pick_fragment_background_bottom_margin"
-            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
             />
 
     <View
@@ -36,7 +34,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            android:hint="LeftIndicator"
             android:layout_alignParentTop="true"
             android:textColor="#000000"
             />
@@ -45,7 +42,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            android:hint="RightIndicator"
             android:layout_alignParentTop="true"
             android:textColor="#000000"
             />

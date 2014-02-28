@@ -1,6 +1,5 @@
 package com.hyn.app.data;
 
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.LatLng;
 import com.hyn.app.util.FunctionUtil;
@@ -23,21 +22,21 @@ public class LocationPixel {
     	mCenter = center;
     	mRadius = FunctionUtil.toRadiusMeters(center, radiusLatLng);
     	
-    	initIfNeed();
+    	setupIfNeed();
     }
     
     public LocationPixel(LatLng center, double radius){
     	mCenter = center;
     	mRadius = radius;
     	
-    	initIfNeed();
+    	setupIfNeed();
     }
     
     public LocationPixel(double lat, double lng, double radius){
     	mCenter = new LatLng(lat, lng);
     	mRadius = radius;
     	
-    	initIfNeed();
+    	setupIfNeed();
     }
     
     public LatLng getCenter(){
@@ -51,7 +50,7 @@ public class LocationPixel {
         this.mRatio = mRatio;
     }
     
-    private void initIfNeed(){
+    private void setupIfNeed(){
     	if(mRatio <= 0.00001) return ;
     }    
 }

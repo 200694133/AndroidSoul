@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="pick_fragment_height">60dp</dimen>
-    <dimen name="pick_fragment_background_height">20dp</dimen>
-    <dimen name="pick_fragment_background_padding">50dp</dimen>
+    <dimen name="pick_fragment_height">40dp</dimen>
+    <dimen name="pick_fragment_background_height">18dp</dimen>
+    <dimen name="pick_fragment_background_padding">40dp</dimen>
     <dimen name="pick_fragment_background_bottom_margin">20dp</dimen>
-    <dimen name="pick_fragment_point_width">20dp</dimen>
-    <dimen name="pick_fragment_point_height">70dp</dimen>
+    <dimen name="pick_fragment_point_width">18dp</dimen>
+    <dimen name="pick_fragment_point_height">30dp</dimen>
 </resources>
